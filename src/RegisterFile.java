@@ -1,7 +1,7 @@
 
 public class RegisterFile {
 	static String [] arrRegister;
-
+	
 	
 	static boolean  writeFlag;
 	
@@ -18,5 +18,7 @@ public class RegisterFile {
 	public String getRegisterData(int address) {
 		return arrRegister[address];
 	}
-
+	public static void setRegisterData(int address, String data) {
+		 arrRegister[address]=data;
+	}
 }

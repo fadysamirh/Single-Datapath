@@ -2,8 +2,7 @@ import java.util.ArrayList;
 
 public class InstructionFetch {
 	  
-	static boolean branchControl;
-	static boolean aluZeroControl;
+
 	static String currentInstruction="";
 	
 	public String InstFetch( String branchPC) {
@@ -22,9 +21,10 @@ public class InstructionFetch {
 	}
 	
 	public static void ProgCounter(String branchPC) {
-		if(branchControl&&aluZeroControl) {
+		String controlUnit=InstructionDecode.ControlUnit;
+		if(controlUnit.charAt(0)=='0'&&controlUnit.charAt(1)=='1'&&controlUnit.charAt(7)=='1') {
 			
-			InstructionMemory.programCounter=branchPC;
+			InstructionMemory.programCounter+=branchPC;
 		}
 		else {
 			int pc=Integer.parseInt(InstructionMemory.programCounter,2);

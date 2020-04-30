@@ -4,12 +4,17 @@ import java.util.ArrayList;
 public class InstructionDecode {
 	static String readData1;
 	static String readData2;
-	static String ControlUnit;
-	static String signExtend="";
+	static String ControlUnit = "XXXXXXXXX";
+	static String signExtend = "";
+	static int read2Index = -1;
+	static int rs;
+	static int rd;
+	static int rt;
+	
 	public void InstDecode(String instruction, String PC, RegisterFile registerFile) {
 		System.out.println("Starting decoding now..");
 		String opCode = instruction.substring(0, 6);
-		
+
 		if (opCode.equals("000000")) {
 			System.out.println("The instruction type is R-type");
 			String function = instruction.substring(26, 32);
@@ -49,30 +54,26 @@ public class InstructionDecode {
 		int rd = Integer.parseInt(instruction.substring(16, 21), 2);
 
 		readData1 = registerFile.getRegisterData(rs);
-		int read2Index=-1;
-		
-		if(ControlUnit.charAt(3)=='0') {
-			readData2=registerFile.getRegisterData(rt);
-			read2Index=rt;
-		}else if(ControlUnit.charAt(3)=='1') {
-			readData2=registerFile.getRegisterData(rd);
-			read2Index=rd;
-			
+
+		if (ControlUnit.charAt(3) == '0') {
+			readData2 = registerFile.getRegisterData(rt);
+			read2Index = rt;
+		} else if (ControlUnit.charAt(3) == '1') {
+			readData2 = registerFile.getRegisterData(rd);
+			read2Index = rd;
+
 		}
-		
-		
-		
+
 		System.out.println("Reading from the registerRead1 at index " + rs + " with the data value "
 				+ Integer.parseInt(readData1, 2));
-		
-		if(read2Index!=-1)
-		System.out.println("Reading from the registerRead2 at index " + read2Index + " with the data value "
-				+ Integer.parseInt(readData2, 2));
+
+		if (read2Index != -1)
+			System.out.println("Reading from the registerRead2 at index " + read2Index + " with the data value "
+					+ Integer.parseInt(readData2, 2));
 
 		String immediate = instruction.substring(16, 32);
 
-		
-		signExtend=SignExtend(immediate);
+		signExtend = SignExtend(immediate);
 	}
 
 	public void ContUnit(String opCode) {
