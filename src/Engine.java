@@ -3,22 +3,37 @@ import java.util.ArrayList;
 public class Engine {
 	public static void main(String[] args) {
 		ArrayList<String> dummyData=new ArrayList<String>();
-		for(int i=0;i<30;i++)
-			dummyData.add("StringData"+i);
+		RegisterFile registerfile=new RegisterFile();
+
+		for(int i=0;i<32;i++) {
+			String x=Integer.toBinaryString(i);
+			for(int j=x.length();j<32;j++)
+				x="0"+x;
+			dummyData.add(x);
+			registerfile.arrRegister[i]=x;
+			
+			
+			
+			}
 		
 		
 		InstructionMemory instMemory=new InstructionMemory();
 		ArrayList<String>instructions=new ArrayList<String>();
 		//sub
 		
-		//instructions.add("00000000011000100001100000100010");
-		instructions.add("10001100001000000000000000000100");
-		RegisterFile registerfile=new RegisterFile();
-		registerfile.arrRegister[1]=Integer.toBinaryString(0);
-		registerfile.arrRegister[3]=Integer.toBinaryString(2);
-		registerfile.arrRegister[2]=Integer.toBinaryString(10);
+		instructions.add("00000001100010010101100000100000"); // add $11,$12,$9
+		instructions.add("00000001100010010101100000100101"); // OR $11,$12,$9
+		instructions.add("00000001100011010101100000100010"); // SUB $11,$12,$9
+		instructions.add("00000001100010010101100000100100"); // AND $11,$12,$9
+		instructions.add("00000001100010010101100000101010"); // Set-on-less-than $11,$12,$9
+		instructions.add("10101100001000100000000000000101"); // store
+ 		instructions.add("10001101010010000000000000000010");//lw		
+		instructions.add("00010001000010000000000000000101"); //beq
+
+		
 		instMemory.setInstructions(instructions);
 		
+		while(Integer.parseInt(InstructionMemory.programCounter,2)<InstructionMemory.instructions.size()) {
 		InstructionFetch instFetch = new InstructionFetch();
 		instFetch.InstFetch(null);
 		
@@ -36,7 +51,7 @@ public class Engine {
 		
 		memAccess.MemAccess(ALUresult, instDecode.readData2, InstructionDecode.ControlUnit.charAt(6), InstructionDecode.ControlUnit.charAt(5));
 		WriteBack writeBack = new WriteBack();
-		writeBack.WriteBack(ALUresult);
+		writeBack.WriteBack(ALUresult);}
 		
 		
 	}

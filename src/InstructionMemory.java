@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class InstructionMemory {
 	static String programCounter;
-	private static ArrayList<String> instructions;
+	static ArrayList<String> instructions;
 	
 	public InstructionMemory() {
 		programCounter="00000000000000000000000000000000";

@@ -13,6 +13,8 @@ public class InstructionDecode {
 	
 	public void InstDecode(String instruction, String PC, RegisterFile registerFile) {
 		System.out.println("Starting decoding now..");
+		System.out.println("The input instruction is "+instruction);
+		System.out.println("The input PC is " +PC);
 		String opCode = instruction.substring(0, 6);
 
 		if (opCode.equals("000000")) {
@@ -49,9 +51,9 @@ public class InstructionDecode {
 
 		}
 
-		int rs = Integer.parseInt(instruction.substring(6, 11), 2);
-		int rt = Integer.parseInt(instruction.substring(11, 16), 2);
-		int rd = Integer.parseInt(instruction.substring(16, 21), 2);
+		 rs = Integer.parseInt(instruction.substring(6, 11), 2);
+		 rt = Integer.parseInt(instruction.substring(11, 16), 2);
+		 rd = Integer.parseInt(instruction.substring(16, 21), 2);
 
 		readData1 = registerFile.getRegisterData(rs);
 
@@ -63,7 +65,6 @@ public class InstructionDecode {
 			read2Index = rd;
 
 		}
-
 		System.out.println("Reading from the registerRead1 at index " + rs + " with the data value "
 				+ Integer.parseInt(readData1, 2));
 
@@ -74,6 +75,8 @@ public class InstructionDecode {
 		String immediate = instruction.substring(16, 32);
 
 		signExtend = SignExtend(immediate);
+		System.out.println("The PC is " + InstructionMemory.programCounter);
+		System.out.println("End of decoding");
 	}
 
 	public void ContUnit(String opCode) {
@@ -95,13 +98,13 @@ public class InstructionDecode {
 		} else if (opCode.equals("000100")) {
 			// System.out.println("The instruction type is I-type");
 			// ALU OP(2) RegDst AluSrc RegWrite MemRead MemWrite Branch Mem-to-Reg
-			ControlUnit = "000111001";
+			ControlUnit = "01X00001X";
 
 		} else {
 			// ALU OP(2) RegDst AluSrc RegWrite MemRead MemWrite Branch Mem-to-Reg
 			ControlUnit = "XXXXXXXX";
 		}
-
+		System.out.println("The output Control Signal");
 		System.out.print("AluOp: " + ControlUnit.charAt(0) + ControlUnit.charAt(1));
 		System.out.print(" | ");
 		System.out.print("RegDst: " + ControlUnit.charAt(2));

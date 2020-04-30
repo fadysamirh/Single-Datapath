@@ -2,10 +2,19 @@
 public class Execute {
 	static boolean zeroFlag;
 	static String result = "";
+	static String BranchAddress="";
 
 	public String Execute(String AluOp, char ALUSrc, String ReadData1, String ReadData2, String immediate) {
+		System.out.println("Starting Excuting ..");
+		System.out.println("The input AluOp is "+ AluOp);
+		System.out.println("The input ALUSrc is "+ ALUSrc);
+		System.out.println("The input ReadData1 is "+ ReadData1);
+		System.out.println("The input ReadData2 is "+ ReadData2);
+		System.out.println("The input SignExtend is "+ immediate);
+		System.out.println("The input PC is "+ InstructionMemory.programCounter);
+		
 		String funct = InstructionFetch.currentInstruction.substring(26, 32);
-		String Op = null;
+		String Op = "";
 		int Operand1 = Integer.parseInt(ReadData1, 2);
 		int Operand2 = -1;
 
@@ -19,6 +28,8 @@ public class Execute {
 			Op = "0010";
 		} else if (AluOp.equals("01")) {
 			Op = "0110";
+			BranchAddress=ReadData2;
+			System.out.println("The output BranchAddress is "+ ReadData2);
 		} else if (AluOp.equals("10")) {
 			if (funct.equals("100000")) {
 				Op = "0010";
@@ -95,12 +106,13 @@ public class Execute {
 			System.out.println("The first operand is " + Operand1);
 			System.out.println("The second operand is " + Operand2);
 			System.out.println("The output is " + (Operand1 - Operand2));
-			result = immediate;
+			result = toBinary(Operand1 - Operand2);
 			if ((Operand1 - Operand2) == 0) {
 				zeroFlag = true;
 				System.out.println("The zero flag is set to true");
 				if (AluOp.equals("01")) {
 					InstructionFetch.ProgCounter(ReadData2);
+					
 				}
 			} else {
 				zeroFlag = false;
@@ -152,6 +164,13 @@ public class Execute {
 
 			System.out.println("NOR Operation Done!");
 
+		}
+		System.out.println("The output ALUresult is " + result);
+		System.out.println("The output ReadData2 is "+ ReadData2);
+		System.out.println("The output PC is " + InstructionMemory.programCounter);
+		System.out.println("End of Executing..");
+		for(int i=result.length();i<32;i++){
+			result=0+result;
 		}
 		return result;
 	}
