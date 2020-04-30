@@ -15,13 +15,13 @@ public class Execute {
 		
 		String funct = InstructionFetch.currentInstruction.substring(26, 32);
 		String Op = "";
-		int Operand1 = Integer.parseInt(ReadData1, 2);
+		int Operand1 =(int) Long.parseLong(ReadData1, 2);
 		int Operand2 = -1;
 
 		if (ALUSrc == '1') {
-			Operand2 = Integer.parseInt(immediate, 2);
+			Operand2 =(int) Long.parseLong(immediate, 2);
 		} else {
-			Operand2 = Integer.parseInt(ReadData2, 2);
+			Operand2 =(int) Long.parseLong(ReadData2, 2);
 		}
 
 		if (AluOp.equals("00")) {

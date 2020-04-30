@@ -19,15 +19,15 @@ public class MemoryAccess {
 		System.out.println("The input MemRead is " + MemRead);
 
 		if (MemWrite == '1') {
-			dataMemory.set(Integer.parseInt(ALUresult, 2), ReadData2);
-			if (Integer.parseInt(ALUresult, 2) == 0) {
+			dataMemory.set((int) Long.parseLong(ALUresult, 2), ReadData2);
+			if ((int) Long.parseLong(ALUresult, 2) == 0) {
 				System.out.println("You can't write in register 0");
 			} else
-				System.out.println("Writing in the data memory at index " + Integer.parseInt(ALUresult, 2)
+				System.out.println("Writing in the data memory at index " + (int) Long.parseLong(ALUresult, 2)
 						+ " with data value " + ReadData2);
 		} else if (MemRead == '1') {
-			memoryRead = dataMemory.get(Integer.parseInt(ALUresult, 2));
-			System.out.println("Reading in the data memory at index " + Integer.parseInt(ALUresult, 2)
+			memoryRead = dataMemory.get((int) Long.parseLong(ALUresult, 2));
+			System.out.println("Reading in the data memory at index " + (int) Long.parseLong(ALUresult, 2)
 					+ " with data value " + memoryRead);
 		}
 

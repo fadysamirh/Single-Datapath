@@ -9,7 +9,7 @@ public class InstructionFetch {
 		System.out.println("Starting Fetching..");
 		System.out.println("PC Address input is " +InstructionMemory.programCounter);
 		
-		int intAddress= Integer.parseInt(InstructionMemory.programCounter,2);
+		int intAddress= (int)Long.parseLong(InstructionMemory.programCounter,2);
 		
 		String returnedInstruction= InstructionMemory.getInstructions().get(intAddress);
 		currentInstruction=returnedInstruction;
@@ -25,8 +25,8 @@ public class InstructionFetch {
 		String controlUnit=InstructionDecode.ControlUnit;
 		if(controlUnit.charAt(0)=='0'&&controlUnit.charAt(1)=='1'&&controlUnit.charAt(7)=='1') {
 			
-			Long pc=Long.parseLong(InstructionMemory.programCounter,2);
-			Long branch=Long.parseLong(branchPC,2);
+			int pc=(int)Long.parseLong(InstructionMemory.programCounter,2);
+			int branch=(int)Long.parseLong(branchPC,2);
 			pc+=branch;
 			InstructionMemory.programCounter=Long.toBinaryString(pc);
 			for(int i= InstructionMemory.programCounter.length();i<32;i++) {
@@ -35,7 +35,7 @@ public class InstructionFetch {
 			
 		}
 		else {
-			int pc=Integer.parseInt(InstructionMemory.programCounter,2);
+			int pc=(int)Long.parseLong(InstructionMemory.programCounter,2);
 			pc+=1;
 			InstructionMemory.programCounter=Integer.toBinaryString(pc);
 			

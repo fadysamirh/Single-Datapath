@@ -51,9 +51,9 @@ public class InstructionDecode {
 
 		}
 
-		 rs = Integer.parseInt(instruction.substring(6, 11), 2);
-		 rt = Integer.parseInt(instruction.substring(11, 16), 2);
-		 rd = Integer.parseInt(instruction.substring(16, 21), 2);
+		 rs = (int) Long.parseLong(instruction.substring(6, 11), 2);
+		 rt = (int) Long.parseLong(instruction.substring(11, 16), 2);
+		 rd = (int) Long.parseLong(instruction.substring(16, 21), 2);
 
 		readData1 = registerFile.getRegisterData(rs);
 
@@ -66,11 +66,11 @@ public class InstructionDecode {
 
 		}
 		System.out.println("Reading from the registerRead1 at index " + rs + " with the data value "
-				+ Integer.parseInt(readData1, 2));
+				+ (int) Long.parseLong(readData1, 2));
 
 		if (read2Index != -1)
 			System.out.println("Reading from the registerRead2 at index " + read2Index + " with the data value "
-					+ Integer.parseInt(readData2, 2));
+					+ (int) Long.parseLong(readData2, 2));
 
 		String immediate = instruction.substring(16, 32);
 
